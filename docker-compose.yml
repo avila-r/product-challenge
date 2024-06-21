@@ -1,0 +1,29 @@
+version: '3.8'
+
+networks:
+  product-management-network:
+    driver: bridge
+
+services:
+  product-db:
+    build: ./datasource
+    container_name: product-db
+    environment:
+      POSTGRES_DB: product-db
+      POSTGRES_USER: product-management-default-test-user
+      POSTGRES_PASSWORD: product-management-default-test-password
+    ports:
+      - '5432:5432'
+    networks:
+      - product-management-network
+  product-app:
+   build: .
+   container_name: product-app
+   ports:
+     - '8080:8080'
+   environment:
+     PRODUCT_DB_CONTAINER: product-db
+   depends_on:
+      - product-db
+   networks:
+     - product-management-network

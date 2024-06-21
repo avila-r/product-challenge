@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: product
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${PRODUCT_DB_CONTAINER:localhost}:5432/product-db
+    username: ${PRODUCT_DB_USERNAME:product-management-default-test-user}
+    password: ${PRODUCT_DB_PASSWORD:product-management-default-test-password}
+
+springdoc:
+  api-docs:
+    path: /docs/openapi
+  swagger-ui:
+    path: /docs/swagger
